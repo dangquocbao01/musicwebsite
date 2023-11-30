@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useSelector } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import {
   SidebarLeft,
@@ -13,9 +13,9 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 const Public = () => {
-  const { singer } = useParams();
   const [isShowRightSidebar, setIsShowRightSidebar] = useState(true);
   const { isLoading, scrollTop } = useSelector((state) => state.app);
+  const { currentSongId } = useSelector((state) => state.music);
   const dispatch = useDispatch();
   const handleScrollTop = (e) => {
     if (e.target.scrollTop === 0) {
@@ -68,9 +68,11 @@ const Public = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 z-50 left-0 right-0 flex-none h-[90px]">
-        <Player setIsShowRightSidebar={setIsShowRightSidebar} />
-      </div>
+      {currentSongId && (
+        <div className="fixed bottom-0 z-50 left-0 right-0 flex-none h-[90px]">
+          <Player setIsShowRightSidebar={setIsShowRightSidebar} />
+        </div>
+      )}
     </div>
   );
 };

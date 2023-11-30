@@ -79,15 +79,17 @@ const SidebarRight = () => {
         </div>
       ) : (
         <div className=" w-full  flex flex-col flex-auto px-2">
-          <SongItem
-            key={currentSongData?.encodeId}
-            thumbnail={currentSongData?.thumbnail}
-            title={currentSongData?.title}
-            artists={currentSongData?.artistsNames}
-            sid={currentSongData?.encodeId}
-            size="w-[40px] h-[40px]"
-            style="bg-main-500 text-white"
-          />
+          {currentSongData && (
+            <SongItem
+              key={currentSongData?.encodeId}
+              thumbnail={currentSongData?.thumbnail}
+              title={currentSongData?.title}
+              artists={currentSongData?.artistsNames}
+              sid={currentSongData?.encodeId}
+              size="w-[40px] h-[40px]"
+              style="bg-main-500 text-white"
+            />
+          )}
 
           <div className="flex flex-col text-black pt-[15px] px-2 pb-[5px]">
             <span className=" text-sm font-bold ">Tiếp theo</span>
