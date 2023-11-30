@@ -1,59 +1,73 @@
-import React from "react";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import {
+  Home,
+  Login,
+  Public,
+  Personal,
+  Album,
+  WeekRank,
+  ChartPage,
+  Search,
+  SearchSongs,
+  SearchAll,
+  Singer,
+  SearchPlaylist,
+  Hub,
+} from "./containers/public/";
+import { Routes, Route } from "react-router-dom";
+import path from "./ultis/path";
+import { useEffect, useState, React } from "react";
+import * as actions from "./store/actions";
+import "./App.css";
+import "./index.css";
+import { apiGetChartHome } from "./apis";
+import { apiGetTop100 } from "./apis";
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [work, setWork] = useState("");
-  const handleAdd = () => {
-    if (todos?.some((items) => items.id === work.replace(/ /g, "_"))) {
-      toast.warn("Công việc bị trùng");
-    } else {
-      setTodos((prev) => [...prev, { id: work.replace(/ /g, "_"), job: work }]);
-      setWork("");
-    }
-  };
-  const deleteWork = (id) => {
-    setTodos((prev) => prev.filter((item) => item.id !== id));
-  };
+  const dispatch = useDispatch();
+  const [weekChart, setWeekChart] = useState(null);
+
+  useEffect(() => {
+    dispatch(actions.getHome());
+    const fetchChartData = async () => {
+      const response = await apiGetChartHome();
+      if (response.data.err === 0) setWeekChart(response.data.data.weekChart);
+    };
+
+    fetchChartData();
+  }, []);
   return (
     <>
-      <div className="flex gap-8 flex-col h-screen w-full items-center border-red-500 justify-center ">
-        <div className="flex gap-8">
-          <input
-            type="text"
-            className="outline-none border border-blue-600 px-4 py-2 w-[400px]"
-            value={work}
-            onChange={(e) => setWork(e.target.value)}
-          ></input>
-          <button
-            type="button"
-            className="bg-blue-500 rounded-md text-white px-4 py-2"
-            onClick={handleAdd}
-          >
-            Add
-          </button>
-        </div>
+      <div className="app">
+        <Routes>
+          <Route path={path.PUBLIC} element={<Public />}>
+            <Route path={path.HOME} element={<Home />} />
+            <Route path={path.HUB} element={<Hub />} />
+            <Route path={path.LOGIN} element={<Login />} />
+            <Route path={path.MY_MUSIC} element={<Personal />} />
+            <Route path={path.ALBUM__TITLE__PID} element={<Album />} />
+            <Route path={path.PLAYLIST__TITLE__PID} element={<Album />} />
+            <Route path={path.MY_MUSIC} element={<Login />} />
+            <Route
+              path={path.WEEKRANK__TITLE_PID}
+              element={
+                <WeekRank weekChart={weekChart && Object.values(weekChart)} />
+              }
+            />
+            <Route path={path.CHART} element={<ChartPage />} />
+            <Route path={path.HOME__SINGER} element={<Singer />} />
+            <Route path={path.HOME__ARTIST__SINGER} element={<Singer />} />
+            <Route path={path.SEARCH} element={<Search />}>
+              <Route path={path.ALL} element={<SearchAll />} />
+              <Route path={path.SONG} element={<SearchSongs />} />
+              <Route path={path.PLAYLIST_SEARCH} element={<SearchPlaylist />} />
+            </Route>
 
-        <div>
-          <h3 className="font-bold ">Content</h3>
-          <ul>
-            {todos?.map((item, index) => {
-              return (
-                <li key={item.id} className="  flex gap-10 items-center">
-                  <span className="my-2"> {item.job}</span>
-                  <span
-                    className="my-2 cursor-pointer w-5 rounded-md bg-blue-400 text-center"
-                    onClick={() => deleteWork(item.id)}
-                  >
-                    x
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+            <Route path={path.STAR} element={<Home />} />
+          </Route>
+        </Routes>
       </div>
 
       <ToastContainer
