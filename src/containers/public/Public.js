@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useSelector } from "react";
+import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import {
   SidebarLeft,
