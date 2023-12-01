@@ -28,7 +28,7 @@ const SectionItem = ({
       onClick={() => {
         navigate(link?.split(".")[0], { state: { playAlbum: false } });
       }}
-      className="flex flex-col gap-3 w-1/5 justify-evenly  p-4 text-sm cursor-pointer"
+      className="flex flex-col gap-1 md:gap-3  w-1/2 md:w-1/3  lg:w-1/5 justify-start p-[5px] md:p-4 text-sm cursor-pointer"
     >
       <div
         onMouseLeave={handleLeave}
@@ -63,14 +63,14 @@ const SectionItem = ({
       </div>
 
       <span className="flex flex-col ">
-        <span className="font-semibold">
+        <span className="font-semibold hidden md:self-start ">
           {title?.length > 25 ? title.slice(0, 25) + "..." : title}
         </span>
         <span>
           {data?.sectionId === "h100" ? (
             <span>{artistsNames}</span>
           ) : (
-            <span>
+            <span className="hidden md:inline-block">
               {sortDescription?.length >= 40
                 ? `${sortDescription?.slice(0, 40)}...`
                 : sortDescription}

@@ -26,7 +26,7 @@ const Search = () => {
     }
   };
   return (
-    <div className="w-full relative flex items-center   ">
+    <div className="w-full flex-col md:flex-row relative flex items-center   ">
       {keyword && (
         <span
           onClick={() => setKeyword("")}
@@ -39,7 +39,7 @@ const Search = () => {
       <span
         className={` ${
           singer ? "bg-[rgba(0,0,0,0.2)] text-white" : ""
-        } h-10 pl-4 flex items-center text-gray-500 bg-[#DDE4E4]  rounded-l-[20px]`}
+        } hidden md:flex  h-10 pl-4 flex items-center text-gray-500 bg-[#DDE4E4]  rounded-l-[20px]`}
       >
         <AiOutlineSearch size={24} />
       </span>
@@ -49,7 +49,7 @@ const Search = () => {
           singer
             ? "bg-[rgba(0,0,0,0.2)] text-white placeholder:text-gray-100"
             : ""
-        } outline-none bg-[#DDE4E4] px-4 py-2 rounded-r-[20px] h-[40px] w-full text-gray-500`}
+        } outline-none bg-[#DDE4E4] px-4 py-2 rounded-l-[10px] rounded-r-[10px] md:rounded-l-[0px] md:rounded-r-[20px] md:h-[40px] w-full text-gray-500 text-xs   h-[20px] `}
         placeholder="Tìm kiếm bài hát/ nghệ sĩ tại đây"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}

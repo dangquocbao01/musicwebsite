@@ -16,20 +16,20 @@ const Header = () => {
             singer ? "text-gray-200" : "text-gray-400"
           } cursor-pointer`}
         >
-          <span onClick={() => navigate(-1)}>
+          <span className="hidden md:block" onClick={() => navigate(-1)}>
             <AiOutlineLeft size={24} />
           </span>
-          <span onClick={() => navigate(1)}>
+          <span className="hidden md:block" onClick={() => navigate(1)}>
             <AiOutlineRight size={24} />
           </span>
         </div>
 
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2">
           <Search />
         </div>
       </div>
 
-      <div>login</div>
+      <div className="md:flex hidden">login</div>
     </div>
   );
 };

@@ -45,13 +45,13 @@ const Album = () => {
       dispatch(actions.play(true));
     }
   }, [pid, playlistData]);
-  console.log(playlistData);
+
   return (
     <>
       <div className="w-full h-[90px]"></div>
       <div className="flex gap-8 relative px-[60px] w-full h-full animate-scale-up-center">
         <div className="flex-none w-1/4   flex flex-col  items-center shadow-lg gap-1">
-          <div className="w-full relative overflow-hidden ">
+          <div className="w-full relative  ">
             <img
               src={playlistData?.thumbnailM}
               alt="thumbnail"
@@ -93,7 +93,7 @@ const Album = () => {
           </div>
         </div>
 
-        <Scrollbars style={{ width: "100%", height: "70%" }}>
+        <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
           <div className="flex-auto  mb-40 ">
             <span className="text-sm">
               <span className="text-gray-600">Lời tựa: </span>

@@ -32,16 +32,18 @@ const Public = () => {
           <SidebarLeft />
         </div>
 
-        <div className="flex flex-col w-full 1600:w-8/12  relative">
+        <div className="flex flex-col w-full 1400:w-8/12  relative">
           {isLoading && (
             <div className="absolute top-0 bottom-0 z-20 left-0 right-0 bg-main-200 flex items-center justify-center">
               <Loading />
             </div>
           )}
           <div
-            className={`h-[70px] ${
+            className={`h-[40px] md:h-[70px] ${
               scrollTop ? "bg-transparent" : "bg-main-300 opacity-95 shadow-md"
-            }  fixed top-0 left-[240px]   right-[400px]  z-50 px-[60px] flex items-center `}
+            }  fixed top-0 left-[70px] 1000:left-[226px]   1400:left-[240px] z-50 px-[60px] flex items-center   ${
+              isShowRightSidebar ? "1400:right-[400px] right-0" : "right-0"
+            } `}
           >
             <Header />
           </div>
@@ -62,7 +64,7 @@ const Public = () => {
         {/* //Ràng buộc phần right sidebar với biến isShowRightSidebar */}
         {/* true là hiện, false là tắt */}
         {isShowRightSidebar && (
-          <div className=" hidden h-screen 1600:flex 1600:flex-1 animate-slide-left ">
+          <div className=" hidden h-screen 1400:flex 1400:flex-1 flex-none animate-slide-left ">
             <SidebarRight />
           </div>
         )}

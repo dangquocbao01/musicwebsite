@@ -113,11 +113,11 @@ const ChartSection = () => {
     }
   }, [chart]);
   return (
-    <div className="px-[60px] mt-12 relative  max-h-[430px] rounded-md">
+    <div className="px-[60px] hidden md:block mt-12 relative min-[1324px]:max-h-[430px] h-[760px] rounded-md">
       <img
         src={bgChart}
         alt="bg-chart"
-        className="w-full object-cover  rounded-md max-h-[430px]"
+        className="w-full object-cover  rounded-md  min-[1324px]:max-h-[430px] h-[760px]"
       />
       <div className="absolute top-0 left-[60px] right-[60px] bottom-0 z-10  bg-[rgba(77,34,104,0.7)] rounded-md "></div>
       <div className="absolute top-0 left-[60px] right-[60px] bottom-0 z-20 p-5 flex flex-col gap-4 rounded-md">
@@ -131,7 +131,7 @@ const ChartSection = () => {
           </span>
         </Link>
 
-        <div className="flex gap-4 h-full">
+        <div className="min-[1324px]:flex-row flex-col flex gap-4 h-full">
           <div className="flex-3 flex flex-col  gap-4  ">
             {rank
               ?.filter((i, index) => index < 3)
@@ -150,12 +150,12 @@ const ChartSection = () => {
 
             <Link
               to={path.CHART}
-              className="text-white px-4 py-3 rounded-l-full rounded-r-full border border-white w-fit self-center hover:bg-green-500 "
+              className="text-white px-4 mb-4 py-3 rounded-l-full rounded-r-full border border-white w-fit self-center hover:bg-green-500 "
             >
-              <span>Xem thêm</span>
+              <span className="">Xem thêm</span>
             </Link>
           </div>
-          <div className="flex-7 h-[90%] relative">
+          <div className="flex-7 order-first min-[1324px]:order-last min-[1324px]:w-[500px]:h-[80%] relative">
             {data && <Line data={data} ref={chartRef} options={options} />}
             <div
               className="tooltip "

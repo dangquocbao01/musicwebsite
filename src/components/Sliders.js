@@ -24,7 +24,7 @@ const Sliders = () => {
   const { banner } = useSelector((state) => state.app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { currentWidth } = useSelector((state) => state.app);
   const handleClickBanner = (item) => {
     if (item?.type === 1) {
       dispatch(actions.setCurrentSongId(item.encodeId));
@@ -38,7 +38,7 @@ const Sliders = () => {
     }
   };
   return (
-    <div className="   gap-4  overflow-hidden px-[60px] py-8">
+    <div className=" w-full rounded-sm  gap-4  overflow-hidden px-[10px] md:px-[60px] py-8">
       {/* {banner?.map((item, index) => (
         <img
           key={item.encodeId}
@@ -52,7 +52,7 @@ const Sliders = () => {
         effect={"coverflow"}
         grabCursor={false}
         centeredSlides={false}
-        slidesPerView={3}
+        slidesPerView={currentWidth < 500 ? 1 : 3}
         coverflowEffect={{
           rotate: 50,
           stretch: 0,
@@ -77,7 +77,7 @@ const Sliders = () => {
               <img
                 src={item.banner}
                 onClick={() => handleClickBanner(item)}
-                className=""
+                className="rounded-sm  "
               />
             </div>
           </SwiperSlide>

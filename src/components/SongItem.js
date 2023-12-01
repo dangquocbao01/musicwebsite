@@ -4,6 +4,7 @@ import moment from "moment";
 import "moment/locale/vi";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions";
+import { useSelector } from "react-redux";
 const SongItem = ({
   thumbnail,
   title,
@@ -16,6 +17,7 @@ const SongItem = ({
   size,
 }) => {
   const dispatch = useDispatch();
+  const { currentWidth } = useSelector((state) => state.app);
   return (
     <div
       onClick={() => {
@@ -49,10 +51,20 @@ const SongItem = ({
 
         <div className="flex flex-col ">
           <span className="text-sm font-semibold">
-            {title?.length > 30 ? `${title.slice(0, 30)}...` : title}
+            {currentWidth < 380
+              ? title?.length > 10
+                ? `${title.slice(0, 10)}...`
+                : title
+              : currentWidth < 1024
+              ? title?.length > 20
+                ? `${title.slice(0, 20)}...`
+                : title
+              : title?.length > 30
+              ? `${title.slice(0, 30)}...`
+              : title}
           </span>
           <span className="text-xs opacity-70">
-            {artists?.length > 30 ? `${title.slice(0, 30)}...` : artists}
+            {artists?.length > 40 ? `${title.slice(0, 40)}...` : artists}
           </span>
           {releaseDate && (
             <span className={`text-xs opacity-70`}>

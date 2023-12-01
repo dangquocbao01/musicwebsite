@@ -15,7 +15,7 @@ const NewRelease = () => {
   }, [isActived, newRelease]);
 
   return (
-    <div className="mt-12 px-[60px] flex flex-col gap-5">
+    <div className="mt-12 px-[10px] md:px-[60px] flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <h3 className="text-5 font-bold">{newRelease?.title}</h3>
         {/* <span className="text-xs uppercase ">Tất cả</span> */}
@@ -44,7 +44,7 @@ const NewRelease = () => {
       </div>
       <div className="flex flex-wrap w-full ">
         {songs?.map((item) => (
-          <div key={item.encodeId} className="w-[45%] min-[1024px]:w-[30%]">
+          <div key={item.encodeId} className=" md:w-[50%] lg:w-[30%]">
             <SongItem
               key={item.encodeId}
               sid={item.encodeId}
