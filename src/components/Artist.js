@@ -11,16 +11,17 @@ const Artist = ({ artistId, image, title, follower, link }) => {
   const [isHover, setIsHover] = useState(false);
   const [isFollow, setIsFollow] = useState(false);
   const dispatch = useDispatch();
-  const { followArtist } = useSelector((state) => state.music);
-  console.log(followArtist);
+  const { followArtists } = useSelector((state) => state.music);
+
   useEffect(() => {
-    followArtist.some((item) => {
-      if (item.title === title) {
+    followArtists.forEach((item) => {
+      if (item?.title === title) {
         setIsFollow(true);
       }
     });
-  }, [followArtist]);
-  const handleRemoveFollow = (title) => {};
+  }, []);
+
+  console.log(followArtists);
   return (
     <div className="flex w-[40%] lg:w-1/5 flex-col gap-2  lg:gap-[15px]">
       <Link
@@ -55,7 +56,7 @@ const Artist = ({ artistId, image, title, follower, link }) => {
           <button
             onClick={() => {
               setIsFollow(!isFollow);
-              // handleRemoveFollow(title);
+              dispatch(actions.setRemoveFollowArtist({ title, artistId }));
             }}
             type="button"
             className="bg-gray-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"

@@ -41,7 +41,10 @@ export const setFollowArtist = (data) => ({
   type: actionTypes.SET_FOLLOW_ARTIST,
   data,
 });
-
+export const setRemoveFollowArtist = (data) => ({
+  type: actionTypes.REMOVE_FOLLOW_ARTIST,
+  data,
+});
 export const search = (keyword) => async (dispatch) => {
   try {
     const responese = await apis.apiSearch(keyword);

@@ -11,7 +11,7 @@ const initState = {
   recentSongs: [],
   searchData: {},
   keyword: "",
-  followArtist: [],
+  followArtists: [],
 };
 
 const musicReducer = (state = initState, action) => {
@@ -55,7 +55,7 @@ const musicReducer = (state = initState, action) => {
           songs = songs.filter((item) => item.sid !== action.data.sid);
         }
 
-        if (songs.length > 19) {
+        if (songs.length > 10) {
           songs = songs.filter(
             (item, index, array) => index !== array.length - 1
           );
@@ -66,11 +66,11 @@ const musicReducer = (state = initState, action) => {
         ...state,
         recentSongs: songs,
       };
-    case actionTypes.SET_FOLLOW_ARTIST:
-      let artists = state.followArtist;
+    case actionTypes.SET_FOLLOW_ARTIST: {
+      let artists = state.followArtists;
       if (action.data) {
         if (
-          state.followArtist?.some(
+          state.followArtists?.some(
             (item) => item.artistId === action.data.artistId
           )
         ) {
@@ -79,7 +79,7 @@ const musicReducer = (state = initState, action) => {
           );
         }
 
-        if (artists.length > 19) {
+        if (artists.length > 20) {
           artists = artists.filter(
             (item, index, array) => index !== array.length - 1
           );
@@ -88,8 +88,30 @@ const musicReducer = (state = initState, action) => {
       }
       return {
         ...state,
-        followArtist: artists,
+        followArtists: artists,
       };
+    }
+
+    case actionTypes.REMOVE_FOLLOW_ARTIST: {
+      let artists = state.followArtists;
+      if (action.data) {
+        if (
+          state.followArtists?.some(
+            (item) => item.artistId === action.data.artistId
+          )
+        ) {
+          artists = artists.filter(
+            (item) => item.artistId !== action.data.artistId
+          );
+        }
+        artists = [...artists];
+      }
+      return {
+        ...state,
+        followArtists: artists,
+      };
+    }
+
     case actionTypes.SEARCH:
       return {
         ...state,
