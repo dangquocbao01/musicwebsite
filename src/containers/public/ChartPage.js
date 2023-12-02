@@ -122,11 +122,11 @@ const ChartPage = () => {
   return (
     <div className=" ">
       <div className=" flex flex-col">
-        <div className="relative">
+        <div className="relative hidden md:flex ">
           <img
             src={bgChart}
             alt="bg-chart"
-            className="w-full object-cover h-[500px] grayscale"
+            className="w-full object-cover h-[500px] grayscale "
           />
           <div className="absolute top-0 bottom-0 left-0 right-0 bg-[rgba(206,217,217,0.8)]"></div>
           <div className="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-t from-[#CED8D9] to-transparent"></div>
@@ -174,7 +174,8 @@ const ChartPage = () => {
       </div>
 
       {/* chart songs */}
-      <div className="px-[60px] mt-12">
+
+      <div className="px-[10px] md:px-[60px] mt-12">
         <RankList data={chartData?.RTChart?.items} number={10} />
         {/* {chartData?.RTChart?.items.map((item, index) => (
           <ListItem
@@ -186,23 +187,23 @@ const ChartPage = () => {
         ))} */}
       </div>
 
-      <div className="relative">
+      <div className="hidden  lg:block relative">
         <img
           src={bgChart}
           alt="bg-chart"
-          className="w-full h-[650px] object-cover  grayscale"
+          className="w-full h-[1150px] object-cover  grayscale"
         />
         <div className="absolute top-0 bottom-0 left-0 right-0 bg-[rgba(206,217,217,0.8)]"></div>
 
-        <div className="absolute top-0 bottom-1/2 left-0 right-0 mt-8 px-[60px] flex flex-col gap-4">
+        <div className=" absolute top-0 bottom-1/2 left-0 right-0 mt-8 px-[60px] flex flex-col gap-4">
           <h3 className="font-bold text-[40px] text-main-500">
             Bảng xếp hạng tuần
           </h3>
-          <div className="flex gap-4 h-fit">
+          <div className="flex justify-center flex-wrap gap-2 h-fit">
             {chartData?.weekChart &&
               Object.entries(chartData?.weekChart)?.map((item, index) => (
                 <div
-                  className="flex-1 bg-gray-200 rounded-md px-[10px] py-5"
+                  className="w-[48%] bg-gray-200 rounded-md px-[10px] py-5"
                   key={index}
                 >
                   <h3 className="text-[24px] text-main-500 font-bold">
@@ -228,7 +229,6 @@ const ChartPage = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-[500px]"></div>
     </div>
   );
 };

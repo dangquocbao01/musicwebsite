@@ -17,7 +17,7 @@ const SearchPlaylist = () => {
   }, [searchData]);
 
   return (
-    <div className="w-full flex-col flex gap-8 px-[44px]">
+    <div className="w-full flex-col flex gap-8  px-[20px] lg:px-[44px]">
       <h3 className="px-[16px] font-bold text-lg">Playlist/Album</h3>
       <div className="flex flex-wrap items-start justify-start">
         {/* Check xem section có item hay không */}

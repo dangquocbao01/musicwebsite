@@ -113,11 +113,11 @@ const ChartSection = () => {
     }
   }, [chart]);
   return (
-    <div className="px-[60px] hidden md:block mt-12 relative min-[1324px]:max-h-[430px] h-[760px] rounded-md">
+    <div className=" lg:px-[60px] hidden md:flex mt-12 relative min-[1324px]:max-h-[430px] h-[760px] rounded-md">
       <img
         src={bgChart}
         alt="bg-chart"
-        className="w-full object-cover  rounded-md  min-[1324px]:max-h-[430px] h-[760px]"
+        className="w-full object-cover  hidden md:flex rounded-md  min-[1324px]:max-h-[430px] h-[760px]"
       />
       <div className="absolute top-0 left-[60px] right-[60px] bottom-0 z-10  bg-[rgba(77,34,104,0.7)] rounded-md "></div>
       <div className="absolute top-0 left-[60px] right-[60px] bottom-0 z-20 p-5 flex flex-col gap-4 rounded-md">
@@ -131,8 +131,8 @@ const ChartSection = () => {
           </span>
         </Link>
 
-        <div className="min-[1324px]:flex-row flex-col flex gap-4 h-full">
-          <div className="flex-3 flex flex-col  gap-4  ">
+        <div className="min-[1324px]:flex-row flex-col flex gap-4 h-full ">
+          <div className="flex-5 flex flex-col  gap-4  ">
             {rank
               ?.filter((i, index) => index < 3)
               ?.map((item, index) => (
@@ -155,7 +155,7 @@ const ChartSection = () => {
               <span className="">Xem thêm</span>
             </Link>
           </div>
-          <div className="flex-7 order-first min-[1324px]:order-last min-[1324px]:w-[500px]:h-[80%] relative">
+          <div className=" flex-5 order-first min-[1324px]:order-last min-[1324px]:h-[100%] min-[1324px]:flex-7 relative">
             {data && <Line data={data} ref={chartRef} options={options} />}
             <div
               className="tooltip "

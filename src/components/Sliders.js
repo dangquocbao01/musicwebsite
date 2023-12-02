@@ -38,7 +38,7 @@ const Sliders = () => {
     }
   };
   return (
-    <div className=" w-full rounded-sm  gap-4  overflow-hidden px-[10px] md:px-[60px] py-8">
+    <div className=" w-full rounded-sm  gap-4  overflow-hidden px-[10px] md:px-[60px] py-2 md:py-8">
       {/* {banner?.map((item, index) => (
         <img
           key={item.encodeId}
@@ -52,7 +52,7 @@ const Sliders = () => {
         effect={"coverflow"}
         grabCursor={false}
         centeredSlides={false}
-        slidesPerView={currentWidth < 500 ? 1 : 3}
+        slidesPerView={currentWidth < 500 ? 1 : currentWidth < 800 ? 2 : 3}
         coverflowEffect={{
           rotate: 50,
           stretch: 0,

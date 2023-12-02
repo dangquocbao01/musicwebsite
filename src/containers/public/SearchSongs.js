@@ -12,7 +12,7 @@ const SearchSongs = () => {
   }, [searchData]);
 
   return (
-    <div className="w-full px-[60px] ">
+    <div className="w-full px-[10px] lg:px-[60px] ">
       <ListSongs isHideTime />
     </div>
   );

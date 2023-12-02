@@ -11,5 +11,6 @@ const actionTypes = {
   SEARCH: "SEARCH",
   ZERO_SCROLLTOP: "ZERO_SCROLLTOP",
   CURRENT_WIDTH: "CURRENT_WIDTH",
+  SET_FOLLOW_ARTIST: " SET_FOLLOW_ARTIST",
 };
 export default actionTypes;

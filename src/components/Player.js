@@ -173,9 +173,9 @@ const Player = ({ setIsShowRightSidebar }) => {
   };
 
   return (
-    <div className="bg-main-400 px-5 h-full flex ">
+    <div className="bg-main-400 px-2 md:px-5 h-full flex ">
       {/* first div */}
-      <div className="w-[30%] gap-4 flex flex-auto  items-center ">
+      <div className=" w-[70%] md:w-[30%] gap-4 flex flex-auto  items-center ">
         <img
           src={songInfo?.thumbnail}
           alt="thumbnail"
@@ -194,17 +194,17 @@ const Player = ({ setIsShowRightSidebar }) => {
           <span>
             <AiOutlineHeart size={16} />
           </span>
-          <span>
+          <span className="hidden md:flex">
             <BsThreeDots />
           </span>
         </div>
       </div>
       {/* second div */}
-      <div className="w-[40%] flex flex-col items-center  justify-center flex-auto   py-2 gap-2 ">
+      <div className="w-[50%] md:w-[40%] flex flex-col items-center  justify-center flex-auto   py-2 gap-2 ">
         <div className="flex gap-8 justify-center items-center">
           <span
             onClick={() => setIsShuffle((prev) => !prev)}
-            className={`cursor-pointer ${
+            className={`cursor-pointer hidden md:flex ${
               isShuffle ? "text-purple-600" : "text-black"
             }`}
             title="Bật phát ngẫu nhiên"
@@ -238,7 +238,9 @@ const Player = ({ setIsShowRightSidebar }) => {
 
           <span
             onClick={() => setRepeatMode((prev) => (prev === 2 ? 0 : prev + 1))}
-            className={`cursor-pointer ${repeatMode && "text-purple-600"}`}
+            className={`cursor-pointer ${
+              repeatMode && "text-purple-600"
+            } hidden md:flex`}
             title="Bật phát lại tất cả"
           >
             {repeatMode === 1 ? (
@@ -248,7 +250,7 @@ const Player = ({ setIsShowRightSidebar }) => {
             )}
           </span>
         </div>
-        <div className="w-full flex justify-center items-center gap-3 text-xs">
+        <div className="w-full hidden md:flex justify-center items-center gap-3 text-xs">
           <span className="">
             {moment.utc(curSeconds * 1000).format("mm:ss")}
           </span>

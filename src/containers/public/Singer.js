@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { apiGetArtist } from "../../apis";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import icons from "../../ultis/icons";
-import { SongItem, Section, Artist } from "../../components";
+import { SongItem, Artist, Section } from "../../components";
 import { useSelector } from "react-redux";
+
 const { BsFillPlayFill } = icons;
 const Singer = () => {
   const ref = useRef();
@@ -21,7 +22,7 @@ const Singer = () => {
     };
     singer && fetchArtistData();
   }, [singer]);
-  // console.log(artistData);
+
   useEffect(() => {
     ref.current.scrollIntoView({
       behavior: "smooth",
@@ -29,6 +30,9 @@ const Singer = () => {
       inline: "nearest",
     });
   }, [singer]);
+  // console.log(
+  //   artistData?.sections?.find((item) => item.sectionType === "artist")
+  // );
   return (
     <div className="flex flex-col w-full] ">
       <div ref={ref} className="relative">
@@ -37,20 +41,20 @@ const Singer = () => {
           alt="artist-background"
           className="h-[400px] object-cover w-full "
         />
-        <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-transparent px-[60px] text-white">
-          <div className="absolute bottom-0 pb-6 ">
+        <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-transparent px-[10px] md:px-[60px] text-white">
+          <div className="absolute bottom-0 pb-6  ">
             <div className="flex  gap-8 items-center">
               <h1 className="text-[60px] font-bold">{artistData?.name}</h1>
               <span
                 onMouseEnter={() => setIsHoverPlay(true)}
                 onMouseLeave={() => setIsHoverPlay(false)}
-                className="relative p-2 rounded-full bg-white text-main-500 hover:text-gray-100 cursor-pointer "
+                className="hidden md:flex relative p-2 rounded-full bg-white text-main-500 hover:text-gray-100 cursor-pointer "
               >
-                <div className="w-8 h-8"></div>
+                <div className="w-8 h-8 "></div>
                 {isHoverPlay && (
                   <span className="absolute top-[-1px] left-[-1px] bottom-[-1px] right-[-1px] bg-main-500 rounded-full animate-scale-up-center  "></span>
                 )}
-                <div className="absolute p-2 top-0 left-0 bottom-0 right-0 z-50">
+                <div className=" absolute p-2 top-0 left-0 bottom-0 right-0 z-50">
                   <BsFillPlayFill size={32} />
                 </div>
               </span>
@@ -75,13 +79,13 @@ const Singer = () => {
         </div>
       </div>
       {/* Artist info */}
-      <div className="px-[60px] mt-12 ">
+      <div className="  px-[30px] lg:px-[60px] mt-12 ">
         <h3 className="text-lg font-bold mb-5">{`Về ${artistData?.name}`}</h3>
-        <div className="flex gap-8">
+        <div className="md:flex-row flex gap-8 flex-col">
           <img
             src={artistData?.thumbnailM}
             alt="Thumbnail"
-            className="w-[45%] h-[375px] flex-none object-cover rounded-md"
+            className="w-full md:w-[45%] h-[375px] flex-none object-cover rounded-md"
           />
           {/* Delete thẻ br */}
           <div className="flex flex-col gap-8 text-sm">
@@ -111,7 +115,7 @@ const Singer = () => {
         </div>
       </div>
       {/* Artist best songs */}
-      <div className="mt-[30px] px-[60px] w-full flex  ">
+      <div className="mt-[30px]  px-[30px] lg:px-[60px] w-full flex  ">
         <div className="w-[100%] flex-auto  ">
           <h3 className="mb-5 font-bold text-[20px]">Bài hát nổi bật</h3>
           <div className="flex flex-wrap w-full justify-start  ">
@@ -141,29 +145,32 @@ const Singer = () => {
       {artistData?.sections
         ?.filter((item) => item.sectionType === "playlist")
         ?.map((item, index) => (
-          <Section key={index} data={item} />
+          <Section key={index} data={item} HideBtn number={10} />
         ))}
 
-      <div className="flex flex-col w-full px-[60px] mt-12">
-        <h3 className="text-lg font-bold mb-5">
+      <div className="flex flex-col w-full  px-[30px] lg:px-[60px]   mt-12">
+        <h3 className="text-lg font-bold mb-5 text-center">
           {
             artistData?.sections?.find((item) => item.sectionType === "artist")
               ?.title
           }
         </h3>
-        <div className="flex items-start  gap-[28px] ">
-          {artistData?.sections
-            ?.find((item) => item.sectionType === "artist")
-            ?.items?.filter((item, index) => index < 5)
-            .map((item, index) => (
-              <Artist
-                key={item.id}
-                title={item.name}
-                image={item.thumbnailM}
-                follower={item.totalFollow}
-                link={item.link}
-              />
-            ))}
+        <div className="flex md:flex-col flex-wrap w-full ">
+          <div className="flex flex-wrap lg:flex-nowrap  items-start justify-evenly gap-5 lg:gap-[28px] ">
+            {artistData?.sections
+              ?.find((item) => item.sectionType === "artist")
+              ?.items?.filter((item, index) => index < 5)
+              .map((item, index) => (
+                <Artist
+                  artistId={item.id}
+                  key={item.id}
+                  title={item.name}
+                  image={item.thumbnailM}
+                  follower={item.totalFollow}
+                  link={item.link}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>

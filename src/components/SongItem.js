@@ -52,8 +52,8 @@ const SongItem = ({
         <div className="flex flex-col ">
           <span className="text-sm font-semibold">
             {currentWidth < 380
-              ? title?.length > 10
-                ? `${title.slice(0, 10)}...`
+              ? title?.length > 20
+                ? `${title.slice(0, 20)}...`
                 : title
               : currentWidth < 1024
               ? title?.length > 20

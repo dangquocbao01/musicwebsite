@@ -7,11 +7,11 @@ const SearchAll = () => {
   const { searchData } = useSelector((state) => state.music);
 
   return (
-    <div className="w-full flex flex-col px-[60px] gap-[60px]">
+    <div className="w-full flex flex-col px-[10px] md:px-[60px] gap-[20px] md:gap-[40px] lg:gap-[60px] ">
       <div className="flex flex-col">
         <h3 className="text-lg font-bold mb-5"> Nổi bật </h3>
         <div>
-          <div className=" flex gap-8">
+          <div className=" flex flex-col lg:flex-row  gap-3  lg:gap-8">
             {searchData?.top && (
               <Link
                 to={searchData.artists[0].link}
@@ -75,7 +75,7 @@ const SearchAll = () => {
           {searchData?.songs?.map((item, index) => (
             <div
               key={item.encodeId}
-              className={`flex-auto w-[45%] ${
+              className={`flex-auto w-full md:w-[45%] md:${
                 index % 2 !== 0 ? "pl-4" : "pr-4"
               }`}
             >
@@ -85,9 +85,11 @@ const SearchAll = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-full">
-        <h3 className="text-lg font-bold mb-5"> Playlist/Album </h3>
-        <div className="flex items-start justify-between gap-[28px] ">
+      <div className="flex md:flex-col flex-wrap w-full">
+        <div className="text-lg md:flex w-full font-bold mb-5">
+          Playlist/Album
+        </div>
+        <div className=" flex flex-wrap lg:flex-nowrap  items-start justify-center lg:gap-[28px] ">
           {searchData?.playlists
             ?.filter((item, index) => index <= 4)
             .map((item, index) => (
@@ -97,14 +99,15 @@ const SearchAll = () => {
                 thumbnailM={item.thumbnailM}
                 sortDescription={item.sortDescription}
                 title={item.title}
+                className=""
               />
             ))}
         </div>
       </div>
 
-      <div className="flex flex-col w-full">
-        <h3 className="text-lg font-bold mb-5"> Nghệ sĩ </h3>
-        <div className="flex items-start  gap-[28px] ">
+      <div className="flex md:flex-col flex-wrap w-full">
+        <div className="text-lg md:flex w-full font-bold mb-5"> Nghệ sĩ </div>
+        <div className="flex flex-wrap lg:flex-nowrap  items-start justify-evenly gap-5 lg:gap-[28px] ">
           {searchData?.artists
             ?.filter((item, index) => index <= 4)
             .map((item, index) => (

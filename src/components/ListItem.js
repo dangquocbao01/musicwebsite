@@ -3,7 +3,7 @@ import icons from "../ultis/icons";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import * as actions from "../store/actions";
-
+import { useSelector } from "react-redux";
 const { BsMusicNoteBeamed } = icons;
 
 const ListItem = ({
@@ -34,8 +34,8 @@ const ListItem = ({
     >
       <div
         className={`${
-          isHideAlbum ? "flex-auto" : " flex-1"
-        } flex items-center gap-3`}
+          isHideAlbum ? "flex-auto" : " md:flex-1"
+        } flex items-center gap-3 flex-auto`}
       >
         {order && (
           <div
@@ -62,8 +62,8 @@ const ListItem = ({
           alt="thumbnail"
           className="w-10 h-[40px] object-cover rounded-md"
         />
-        <span className="flex flex-col w-full">
-          <span className="text-sm font-semibold ">
+        <span className="flex flex-col w-full ">
+          <span className="text-sm font-semibold  ">
             {songData?.title?.length > 30
               ? `${songData?.title?.slice(0, 30)}...`
               : songData?.title}
@@ -73,7 +73,7 @@ const ListItem = ({
         </span>
       </div>
       {!isHideAlbum && (
-        <div className="flex flex-1 items-center justify-center text-xs">
+        <div className="hidden lg:flex  flex-1 items-center justify-center text-xs">
           {songData?.album?.title?.length > 30
             ? `${songData?.album?.title?.slice(0, 30)}...`
             : songData?.album?.title}

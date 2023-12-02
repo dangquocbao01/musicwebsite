@@ -48,9 +48,9 @@ const Album = () => {
 
   return (
     <>
-      <div className="w-full h-[90px]"></div>
-      <div className="flex gap-8 relative px-[60px] w-full h-full animate-scale-up-center">
-        <div className="flex-none w-1/4   flex flex-col  items-center shadow-lg gap-1">
+      <div className="w-full h-[50px] md:h-[90px]"></div>
+      <div className=" flex-col lg:flex-row flex gap-8 relative px-[10px] md:px-[60px] w-full h-full animate-scale-up-center">
+        <div className="flex-none w-[100%]  self-center md:w-[50%] lg:w-1/4 lg:self-start  flex flex-col  items-center shadow-lg gap-1">
           <div className="w-full relative  ">
             <img
               src={playlistData?.thumbnailM}
@@ -95,7 +95,7 @@ const Album = () => {
 
         <Scrollbars autoHide style={{ width: "100%", height: "100%" }}>
           <div className="flex-auto  mb-40 ">
-            <span className="text-sm">
+            <span className="text-sm ">
               <span className="text-gray-600">Lời tựa: </span>
               <span className="text-base">{playlistData?.sortDescription}</span>
             </span>

@@ -13,7 +13,7 @@ const Home = () => {
     <>
       {chill ? (
         <div className="overflow-y-auto w-full ">
-          <div className="w-full h-[70px]"></div>
+          <div className="w-full h-[40px] md:h-[70px]"></div>
           <Sliders />
           {chill && <Section data={chill} number={4} />}
           {lovelyDay && <Section data={lovelyDay} number={4} />}

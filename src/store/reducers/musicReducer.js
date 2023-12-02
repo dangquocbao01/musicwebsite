@@ -11,6 +11,7 @@ const initState = {
   recentSongs: [],
   searchData: {},
   keyword: "",
+  followArtist: [],
 };
 
 const musicReducer = (state = initState, action) => {
@@ -61,18 +62,46 @@ const musicReducer = (state = initState, action) => {
         }
         songs = [action.data, ...songs];
       }
-
       return {
         ...state,
         recentSongs: songs,
       };
+    case actionTypes.SET_FOLLOW_ARTIST:
+      let artists = state.followArtist;
+      if (action.data) {
+        if (
+          state.followArtist?.some(
+            (item) => item.artistId === action.data.artistId
+          )
+        ) {
+          artists = artists.filter(
+            (item) => item.artistId !== action.data.artistId
+          );
+        }
 
+        if (artists.length > 19) {
+          artists = artists.filter(
+            (item, index, array) => index !== array.length - 1
+          );
+        }
+        artists = [action.data, ...artists];
+      }
+      return {
+        ...state,
+        followArtist: artists,
+      };
     case actionTypes.SEARCH:
       return {
         ...state,
         searchData: action.data || {},
         keyword: action.keyword || "",
       };
+    // case actionTypes.SET_FOLLOW_ARTIST:
+    //   return {
+    //     ...state,
+    //     followArtist: action.data || null,
+    //   };
+
     default:
       return state;
   }

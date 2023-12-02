@@ -1,13 +1,28 @@
-import { React, useState } from "react";
-import { memo } from "react";
+import { React, useState, memo, useEffect } from "react";
 import { handleNumber } from "../ultis/fn";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { Link } from "react-router-dom";
-const Artist = ({ image, title, follower, link }) => {
-  const [isHover, setIsHover] = useState(false);
+import { AiOutlineCheck } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../store/actions";
+import { forEach } from "lodash";
 
+const Artist = ({ artistId, image, title, follower, link }) => {
+  const [isHover, setIsHover] = useState(false);
+  const [isFollow, setIsFollow] = useState(false);
+  const dispatch = useDispatch();
+  const { followArtist } = useSelector((state) => state.music);
+  console.log(followArtist);
+  useEffect(() => {
+    followArtist.some((item) => {
+      if (item.title === title) {
+        setIsFollow(true);
+      }
+    });
+  }, [followArtist]);
+  const handleRemoveFollow = (title) => {};
   return (
-    <div className="flex  w-1/5 flex-col  gap-[15px]">
+    <div className="flex w-[40%] lg:w-1/5 flex-col gap-2  lg:gap-[15px]">
       <Link
         to={link}
         className="relative overflow-hidden rounded-full cursor-pointer"
@@ -36,15 +51,37 @@ const Artist = ({ image, title, follower, link }) => {
         <span className="text-xs opacity-70">{`${handleNumber(
           follower
         )} quan tâm`}</span>
-        <button
-          type="button"
-          className="bg-main-500 px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
-        >
-          <span>
-            <AiOutlineUserAdd />
-          </span>
-          <span className="uppercase text-xs">Quan tâm</span>
-        </button>
+        {isFollow ? (
+          <button
+            onClick={() => {
+              setIsFollow(!isFollow);
+              // handleRemoveFollow(title);
+            }}
+            type="button"
+            className="bg-gray-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
+          >
+            <span>
+              <AiOutlineCheck />
+            </span>
+            <span className="uppercase text-[10px] md:text-xs ">
+              Đã quan tâm
+            </span>
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setIsFollow(!isFollow);
+              dispatch(actions.setFollowArtist({ title, artistId }));
+            }}
+            type="button"
+            className="bg-main-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
+          >
+            <span>
+              <AiOutlineUserAdd />
+            </span>
+            <span className="uppercase text-[10px] md:text-xs ">Quan tâm</span>
+          </button>
+        )}
       </div>
     </div>
   );

@@ -37,6 +37,11 @@ export const setRecent = (data) => ({
   type: actionTypes.SET_RECENT,
   data,
 });
+export const setFollowArtist = (data) => ({
+  type: actionTypes.SET_FOLLOW_ARTIST,
+  data,
+});
+
 export const search = (keyword) => async (dispatch) => {
   try {
     const responese = await apis.apiSearch(keyword);

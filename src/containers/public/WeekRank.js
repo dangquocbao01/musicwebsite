@@ -14,11 +14,11 @@ const WeekRank = ({ weekChart }) => {
     <div>
       <div className="w-full"></div>
       <div className="relative">
-        <div className="absolute top-0 bottom-1/2 left-0 right-0 flex  px-[60px] flex flex-col gap-4">
+        <div className="absolute top-0 bottom-1/2 left-0 right-0 flex  px-[10px] lg:px-[60px] flex flex-col gap-4">
           <h3 className="font-bold text-[40px] mt-[90px] text-main-500">
             #Chart
           </h3>
-          <div className="flex gap-8">
+          <div className="flex gap-4 md:gap-8">
             {weekChart?.map((item) => (
               <NavLink
                 className={({ isActive }) =>

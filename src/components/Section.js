@@ -6,7 +6,7 @@ import path from "../ultis/path";
 
 const Section = ({ data, number, HideBtn }) => {
   const { currentWidth } = useSelector((state) => state.app);
-  console.log(currentWidth);
+
   return (
     <div className="mt-4 md:mt-12 px-[10px] md:px-[60px] flex flex-col gap-1 w-full">
       <div className="flex items-center justify-between">
@@ -21,7 +21,7 @@ const Section = ({ data, number, HideBtn }) => {
         )}
       </div>
 
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-start">
         {data &&
           data?.items?.length > 0 &&
           data?.items
