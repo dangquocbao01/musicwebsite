@@ -6,6 +6,7 @@ import * as actions from "../store/actions";
 import { toast } from "react-toastify";
 import moment from "moment";
 import LoadingSong from "./LoadingSong";
+
 const {
   SlVolume1,
   SlVolume2,
@@ -39,6 +40,7 @@ const Player = ({ setIsShowRightSidebar }) => {
   const dispatch = useDispatch();
   const [volume, setVolume] = useState(100);
   const [isHoverVolume, setIsHoverVolume] = useState(false);
+  const [isLike, setIsLike] = useState(false);
 
   useEffect(() => {
     const fetchDetailSong = async () => {
@@ -173,7 +175,7 @@ const Player = ({ setIsShowRightSidebar }) => {
   };
 
   return (
-    <div className="bg-main-400 px-2 md:px-5 h-full flex ">
+    <div className="bg-main-400 px-2 md:px-5 h-full flex overflow-hidden ">
       {/* first div */}
       <div className=" w-[70%] md:w-[30%] gap-4 flex flex-auto  items-center ">
         <img
@@ -191,9 +193,15 @@ const Player = ({ setIsShowRightSidebar }) => {
         </div>
 
         <div className="flex gap-4 pl-2">
-          <span>
-            <AiOutlineHeart size={16} />
-          </span>
+          {isLike ? (
+            <span onClick={() => setIsLike(!isLike)}>
+              <AiFillHeart size={16} className="text-red-600" />
+            </span>
+          ) : (
+            <span onClick={() => setIsLike(!isLike)}>
+              <AiOutlineHeart size={16} />
+            </span>
+          )}
           <span className="hidden md:flex">
             <BsThreeDots />
           </span>
@@ -273,7 +281,7 @@ const Player = ({ setIsShowRightSidebar }) => {
         <div
           onMouseEnter={() => setIsHoverVolume(true)}
           onMouseLeave={() => setIsHoverVolume(false)}
-          className="flex gap-2 items-center"
+          className="flex gap-2 items-center cursor-pointer"
         >
           <span onClick={() => setVolume((prev) => (+prev === 0 ? 70 : 0))}>
             {/* Thêm dấu cộng để biến value volume từ chuỗi thành số để compare với số */}
@@ -304,7 +312,9 @@ const Player = ({ setIsShowRightSidebar }) => {
             max={100}
             value={volume}
             onChange={(e) => setVolume(e.target.value)}
-            className={`w-[130px]  ${isHoverVolume ? "flex" : "hidden"}`}
+            className={`w-[130px] cursor-pointer  ${
+              isHoverVolume ? "flex" : "hidden"
+            }`}
           />
         </div>
         <span

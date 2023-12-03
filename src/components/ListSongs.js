@@ -6,7 +6,7 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 const { BsDot } = icons;
 
-const ListSongs = ({ totalDuration, isHideTime }) => {
+const ListSongs = ({ totalDuration, isHideTime, addBtn }) => {
   const { songs } = useSelector((state) => state.music);
 
   return (
@@ -22,7 +22,7 @@ const ListSongs = ({ totalDuration, isHideTime }) => {
       </div>
       <div className="flex flex-col ">
         {songs?.map((item, index) => (
-          <ListItem key={item.encodeId} songData={item} isHideNode />
+          <ListItem key={item.encodeId} songData={item} isHideNode addBtn />
         ))}
       </div>
       {totalDuration && (

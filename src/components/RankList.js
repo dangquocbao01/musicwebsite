@@ -31,6 +31,7 @@ const RankList = ({
           // isWeekChart={isWeekChart}
           isHideAlbum={isHideAlbum}
           order={index + 1}
+          addBtn
         />
       ))}
       <div className="flex w-full justify-center items-center mb-8">

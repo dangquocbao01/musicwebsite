@@ -18,7 +18,7 @@ const musicConfig = {
     "currentSongData",
     "currentAlbumId",
     "recentSongs",
-
+    "personalSongs",
     "followArtists",
   ],
 };

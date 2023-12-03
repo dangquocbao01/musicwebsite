@@ -17,7 +17,7 @@ const Hub = () => {
   } = useSelector((state) => state.app);
   return (
     <div className="w-full">
-      <div className="w-full h-[90px] "></div>
+      <div className="w-full h-[50px] md:h-[90px] "></div>
       {chill && <Section data={chill} number={100} HideBtn />}
       {lovelyDay && <Section data={lovelyDay} number={100} HideBtn />}
       {remix && <Section data={remix} number={100} HideBtn />}

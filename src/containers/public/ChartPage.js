@@ -122,7 +122,7 @@ const ChartPage = () => {
   return (
     <div className=" ">
       <div className=" flex flex-col">
-        <div className="relative hidden md:flex ">
+        <div className="relative hidden md:block ">
           <img
             src={bgChart}
             alt="bg-chart"
@@ -174,8 +174,12 @@ const ChartPage = () => {
       </div>
 
       {/* chart songs */}
-
-      <div className="px-[10px] md:px-[60px] mt-12">
+      <div className="px-[10px] md:px-[60px] mt-[50px] md:hidden">
+        <h1 className="font-bold text-[40px] text-main-500 px-[10px]">
+          #Chart
+        </h1>
+      </div>
+      <div className="px-[10px] md:px-[60px] mt-6 md:mt-12">
         <RankList data={chartData?.RTChart?.items} number={10} />
         {/* {chartData?.RTChart?.items.map((item, index) => (
           <ListItem

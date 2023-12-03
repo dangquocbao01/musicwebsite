@@ -8,7 +8,7 @@ const Section = ({ data, number, HideBtn }) => {
   const { currentWidth } = useSelector((state) => state.app);
 
   return (
-    <div className="mt-4 md:mt-12 px-[10px] md:px-[60px] flex flex-col gap-1 w-full">
+    <div className="mt-4 md:mt-12 px-[10px] md:px-[30px] lg:px-[60px] flex flex-col gap-1 w-full">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold pl-[16px]">{data?.title}</h3>
         {!HideBtn && (

@@ -12,6 +12,7 @@ const initState = {
   searchData: {},
   keyword: "",
   followArtists: [],
+  personalSongs: [],
 };
 
 const musicReducer = (state = initState, action) => {
@@ -48,7 +49,7 @@ const musicReducer = (state = initState, action) => {
         ...state,
         currentAlbumId: action.pid || null,
       };
-    case actionTypes.SET_RECENT:
+    case actionTypes.SET_RECENT: {
       let songs = state.recentSongs;
       if (action.data) {
         if (state.recentSongs?.some((item) => item.sid === action.data.sid)) {
@@ -66,6 +67,13 @@ const musicReducer = (state = initState, action) => {
         ...state,
         recentSongs: songs,
       };
+    }
+    case actionTypes.SET_REMOVE_RECENT:
+      return {
+        ...state,
+        recentSongs: [],
+      };
+
     case actionTypes.SET_FOLLOW_ARTIST: {
       let artists = state.followArtists;
       if (action.data) {
@@ -124,6 +132,50 @@ const musicReducer = (state = initState, action) => {
     //     followArtist: action.data || null,
     //   };
 
+    case actionTypes.SET_PERSONAL_SONGS: {
+      let songs = state.personalSongs;
+      if (action.data) {
+        if (
+          state.personalSongs?.some(
+            (item) => item.encodeId === action.data.encodeId
+          )
+        ) {
+          songs = songs.filter(
+            (item) => item.encodeId !== action.data.encodeId
+          );
+        }
+
+        if (songs.length > 50) {
+          songs = songs.filter(
+            (item, index, array) => index !== array.length - 1
+          );
+        }
+        songs = [action.data, ...songs];
+      }
+      return {
+        ...state,
+        personalSongs: songs,
+      };
+    }
+    case actionTypes.DELETE_PERSONAL_SONG: {
+      let songs = state.personalSongs;
+      if (action.data) {
+        if (
+          state.personalSongs?.some(
+            (item) => item.encodeId === action.data.encodeId
+          )
+        ) {
+          songs = songs.filter(
+            (item) => item.encodeId !== action.data.encodeId
+          );
+        }
+        songs = [...songs];
+      }
+      return {
+        ...state,
+        personalSongs: songs,
+      };
+    }
     default:
       return state;
   }

@@ -1,14 +1,16 @@
 import { React, useState, useEffect } from "react";
 import icons from "../ultis/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SongItem from "./SongItem";
 import { apiGetDetailPlaylist } from "../apis";
 import { Scrollbars } from "react-custom-scrollbars-2";
+
+import * as actions from "../store/actions";
 const { BsTrash } = icons;
 const SidebarRight = () => {
   const [isRecent, setIsRecent] = useState(false);
   const [playlist, setPlaylist] = useState();
-
+  const dispatch = useDispatch();
   const {
     currentSongData,
     currentAlbumId,
@@ -54,7 +56,10 @@ const SidebarRight = () => {
           </span>
         </div>
 
-        <span className="p-1 rounded-full hover:bg-main-100 cursor-pointer">
+        <span
+          onClick={() => dispatch(actions.setRemoveRecent())}
+          className="p-1 rounded-full hover:bg-main-100 cursor-pointer"
+        >
           <BsTrash size={18} />
         </span>
       </div>

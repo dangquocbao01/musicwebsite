@@ -15,7 +15,7 @@ const Artist = ({ artistId, image, title, follower, link }) => {
 
   useEffect(() => {
     followArtists.forEach((item) => {
-      if (item?.title === title) {
+      if (item?.artistId === artistId) {
         setIsFollow(true);
       }
     });
@@ -59,12 +59,12 @@ const Artist = ({ artistId, image, title, follower, link }) => {
               dispatch(actions.setRemoveFollowArtist({ title, artistId }));
             }}
             type="button"
-            className="bg-gray-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
+            className="bg-gray-500 px-2 md:px-4 md:py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
           >
             <span>
               <AiOutlineCheck />
             </span>
-            <span className="uppercase text-[10px] md:text-xs ">
+            <span className="uppercase text-[8px] md:text-xs ">
               Đã quan tâm
             </span>
           </button>
@@ -80,7 +80,7 @@ const Artist = ({ artistId, image, title, follower, link }) => {
             <span>
               <AiOutlineUserAdd />
             </span>
-            <span className="uppercase text-[10px] md:text-xs ">Quan tâm</span>
+            <span className="uppercase text-[8px] md:text-xs ">Quan tâm</span>
           </button>
         )}
       </div>

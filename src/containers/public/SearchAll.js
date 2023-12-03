@@ -79,7 +79,7 @@ const SearchAll = () => {
                 index % 2 !== 0 ? "pl-4" : "pr-4"
               }`}
             >
-              <ListItem songData={item} isHideAlbum isHideNode />
+              <ListItem songData={item} isHideAlbum isHideNode addBtn />
             </div>
           ))}
         </div>

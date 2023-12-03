@@ -5,9 +5,22 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import icons from "../../ultis/icons";
 import { SongItem, Artist, Section } from "../../components";
 import { useSelector } from "react-redux";
-
+import * as actions from "../../store/actions";
+import { useDispatch } from "react-redux";
+import { AiOutlineCheck } from "react-icons/ai";
 const { BsFillPlayFill } = icons;
 const Singer = () => {
+  const [isFollow, setIsFollow] = useState(false);
+  const dispatch = useDispatch();
+  const { followArtists } = useSelector((state) => state.music);
+
+  useEffect(() => {
+    followArtists.forEach((item) => {
+      if (item?.artistId === artistData?.id) {
+        setIsFollow(true);
+      }
+    });
+  }, []);
   const ref = useRef();
   const { singer } = useParams();
   const [artistData, setArtistData] = useState(null);
@@ -33,6 +46,7 @@ const Singer = () => {
   // console.log(
   //   artistData?.sections?.find((item) => item.sectionType === "artist")
   // );
+  console.log(artistData);
   return (
     <div className="flex flex-col w-full] ">
       <div ref={ref} className="relative">
@@ -65,15 +79,46 @@ const Singer = () => {
                   artistData?.totalFollow.toFixed(1)
                 ).toLocaleString()} người quan tâm`}{" "}
               </span>
-              <button
-                type="button"
-                className="bg-main-500 px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
-              >
-                <span>
-                  <AiOutlineUserAdd />
-                </span>
-                <span className="uppercase text-xs opacity-90">Quan tâm</span>
-              </button>
+              {isFollow ? (
+                <button
+                  onClick={() => {
+                    setIsFollow(!isFollow);
+                    dispatch(
+                      actions.setRemoveFollowArtist(
+                        artistData?.id,
+                        artistData?.name
+                      )
+                    );
+                  }}
+                  type="button"
+                  className="bg-gray-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
+                >
+                  <span>
+                    <AiOutlineCheck />
+                  </span>
+                  <span className="uppercase text-[10px] md:text-xs ">
+                    Đã quan tâm
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsFollow(!isFollow);
+                    dispatch(
+                      actions.setFollowArtist(artistData?.id, artistData?.name)
+                    );
+                  }}
+                  type="button"
+                  className="bg-main-500 px-2 md:px-4 py-1 text-white text-sm rounded-l-full rounded-r-full flex items-center justify-center gap-1"
+                >
+                  <span>
+                    <AiOutlineUserAdd />
+                  </span>
+                  <span className="uppercase text-[10px] md:text-xs ">
+                    Quan tâm
+                  </span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -115,7 +160,7 @@ const Singer = () => {
         </div>
       </div>
       {/* Artist best songs */}
-      <div className="mt-[30px]  px-[30px] lg:px-[60px] w-full flex  ">
+      <div className="mt-[30px]  px-[10px] md:px-[30px] lg:px-[60px] w-full flex  ">
         <div className="w-[100%] flex-auto  ">
           <h3 className="mb-5 font-bold text-[20px]">Bài hát nổi bật</h3>
           <div className="flex flex-wrap w-full justify-start  ">
@@ -148,8 +193,8 @@ const Singer = () => {
           <Section key={index} data={item} HideBtn number={10} />
         ))}
 
-      <div className="flex flex-col w-full  px-[30px] lg:px-[60px]   mt-12">
-        <h3 className="text-lg font-bold mb-5 text-center">
+      <div className="flex flex-col w-full  px-[30px] lg:px-[60px]  mt-6  md:mt-12">
+        <h3 className="text-lg font-bold mb-5 text-center self-start">
           {
             artistData?.sections?.find((item) => item.sectionType === "artist")
               ?.title

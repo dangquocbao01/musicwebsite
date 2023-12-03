@@ -22,12 +22,6 @@ export const sidebarMenu = [
     end: true,
     icons: <AiOutlinePieChart size={24} />,
   },
-  {
-    path: "follwing",
-    text: "Theo dõi",
-    end: true,
-    icons: <MdOutlineFeed size={24} />,
-  },
 ];
 
 export const searchMenu = [

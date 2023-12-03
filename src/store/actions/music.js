@@ -37,6 +37,17 @@ export const setRecent = (data) => ({
   type: actionTypes.SET_RECENT,
   data,
 });
+export const setPersonalSong = (data) => ({
+  type: actionTypes.SET_PERSONAL_SONGS,
+  data,
+});
+export const setDeletePersonalSong = (data) => ({
+  type: actionTypes.DELETE_PERSONAL_SONG,
+  data,
+});
+export const setRemoveRecent = () => ({
+  type: actionTypes.SET_REMOVE_RECENT,
+});
 export const setFollowArtist = (data) => ({
   type: actionTypes.SET_FOLLOW_ARTIST,
   data,
