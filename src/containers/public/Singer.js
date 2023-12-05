@@ -163,7 +163,18 @@ const Singer = () => {
       <div className="mt-[30px]  px-[10px] md:px-[30px] lg:px-[60px] w-full flex  ">
         <div className="w-[100%] flex-auto  ">
           <h3 className="mb-5 font-bold text-[20px]">Bài hát nổi bật</h3>
-          <div className="flex flex-wrap w-full justify-start  ">
+          <div
+            onClick={() =>
+              dispatch(
+                actions.setPlaylist(
+                  artistData?.sections
+                    ?.find((item) => item.sectionType === "song")
+                    ?.items?.filter((item, index) => index < 10)
+                )
+              )
+            }
+            className="flex flex-wrap w-full justify-start  "
+          >
             {artistData?.sections
               ?.find((item) => item.sectionType === "song")
               ?.items?.filter((item, index) => index < 10)
