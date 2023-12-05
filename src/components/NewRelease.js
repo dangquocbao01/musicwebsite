@@ -1,17 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+
+import * as actions from "../store/actions";
 import SongItem from "./SongItem";
 const NewRelease = () => {
   const { newRelease } = useSelector((state) => state.app);
+  const { songs } = useSelector((state) => state.music);
   const [isActived, setIsActived] = useState(0);
-  const [songs, setSongs] = useState([]);
-
+  const [newReleaseSongs, setNewReleaseSongs] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(actions.setPlaylist(newRelease?.items?.vPop));
     isActived
-      ? setSongs(newRelease?.items?.others)
-      : setSongs(newRelease?.items?.vPop);
+      ? setNewReleaseSongs(newRelease?.items?.others)
+      : setNewReleaseSongs(newRelease?.items?.vPop);
   }, [isActived, newRelease]);
 
   return (
@@ -24,7 +27,10 @@ const NewRelease = () => {
       <div className="flex items-center gap-5 text-xs">
         <button
           type="button"
-          onClick={() => setIsActived(0)}
+          onClick={() => {
+            setIsActived(0);
+            dispatch(actions.setPlaylist(newRelease?.items?.vPop));
+          }}
           className={`py-1 px-4 rounded-l-full rounded-r-full border border-gray-400  ${
             isActived === 0 && "bg-[#0E8080] text-white"
           }`}
@@ -34,7 +40,10 @@ const NewRelease = () => {
 
         <button
           type="button"
-          onClick={() => setIsActived(1)}
+          onClick={() => {
+            setIsActived(1);
+            dispatch(actions.setPlaylist(newRelease?.items?.others));
+          }}
           className={`py-1 px-4 rounded-l-full rounded-r-full border border-gray-400  ${
             isActived === 1 && "bg-[#0E8080] text-white"
           }`}
@@ -43,7 +52,7 @@ const NewRelease = () => {
         </button>
       </div>
       <div className="flex flex-wrap w-full ">
-        {songs?.map((item) => (
+        {newReleaseSongs?.map((item) => (
           <div key={item.encodeId} className="w-[100%] md:w-[50%] lg:w-[30%]">
             <SongItem
               key={item.encodeId}

@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { handleNumber } from "../../ultis/fn";
 import { SongItem, ListItem, SectionItem, Artist } from "../../components";
 import { Link } from "react-router-dom";
+import * as actions from "../../store/actions";
 const SearchAll = () => {
   const { searchData } = useSelector((state) => state.music);
-
+  const dispatch = useDispatch();
   return (
     <div className="w-full flex flex-col px-[10px] md:px-[60px] gap-[20px] md:gap-[40px] lg:gap-[60px] ">
       <div className="flex flex-col">
@@ -56,22 +57,16 @@ const SearchAll = () => {
                   />
                 </div>
               ))}
-            {/* {searchData?.songs &&
-              searchData?.songs?.length > 0 &&
-              //filter mảng có 5 phần tử rồi mới map
-              searchData?.songs
-                ?.filter((item, index) => index <= 1)
-                ?.map((item) => (
-                  <div key={item.encodeId} className="flex-1">
-                    song 1
-                  </div>
-                ))} */}
           </div>
         </div>
       </div>
       <div className="flex flex-col w-full">
         <h3 className="text-lg font-bold mb-5"> Bài hát </h3>
-        <div className="flex justify-between flex-wrap w-full ">
+        <div
+          onClick={() => dispatch(actions.setPlaylist(searchData?.songs))}
+          className="flex justify-between flex-wrap w-full
+         "
+        >
           {searchData?.songs?.map((item, index) => (
             <div
               key={item.encodeId}

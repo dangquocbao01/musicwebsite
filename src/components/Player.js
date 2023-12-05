@@ -26,9 +26,8 @@ const {
 var intervalId;
 const Player = ({ setIsShowRightSidebar }) => {
   const [audio, setAudio] = useState(new Audio());
-  const { currentSongId, isPlaying, songs, recentSongs } = useSelector(
-    (state) => state.music
-  );
+  const { currentSongId, isPlaying, songs, recentSongs, personalSongs } =
+    useSelector((state) => state.music);
   const [isShuffle, setIsShuffle] = useState(false);
   const [isLoadedSource, setIsLoadedSource] = useState(true);
   const [repeatMode, setRepeatMode] = useState(0);
@@ -139,17 +138,32 @@ const Player = ({ setIsShowRightSidebar }) => {
     if (songs) {
       let currentSongIndex;
       songs?.forEach((item, index) => {
-        if (item.encodeId === currentSongId) currentSongIndex = index;
+        if (item.encodeId === currentSongId) {
+          currentSongIndex = index;
+        }
       });
-      dispatch(actions.setCurrentSongId(songs[currentSongIndex + 1].encodeId));
+      if (currentSongIndex >= songs.length - 1) {
+        dispatch(actions.setCurrentSongId(songs[0].encodeId));
+      } else
+        dispatch(
+          actions.setCurrentSongId(songs[currentSongIndex + 1].encodeId)
+        );
+
       dispatch(actions.play(true));
     }
-    // if (recentSongs) {
-    //   let recentSongIndex;
-    //   recentSongs?.forEach((item, index) => {
-    //     if (item.sid === currentSongId) recentSongIndex = index;
+    // else if (personalSongs) {
+    //   let personalSongsIndex;
+    //   personalSongs?.forEach((item, index) => {
+    //     if (item.encodeId === currentSongId) personalSongsIndex = index;
     //   });
-    //   dispatch(actions.setCurrentSongId(recentSongs[recentSongIndex + 1].sid));
+    //   if (personalSongsIndex >= personalSongs.length - 1) {
+    //     dispatch(actions.setCurrentSongId(personalSongs[0].encodeId));
+    //   } else
+    //     dispatch(
+    //       actions.setCurrentSongId(
+    //         personalSongs[personalSongsIndex + 1].encodeId
+    //       )
+    //     );
     //   dispatch(actions.play(true));
     // }
   };
@@ -157,16 +171,49 @@ const Player = ({ setIsShowRightSidebar }) => {
     if (songs) {
       let currentSongIndex;
       songs?.forEach((item, index) => {
-        if (item.encodeId === currentSongId) currentSongIndex = index;
+        if (item.encodeId === currentSongId) {
+          if (index > songs.length) {
+            currentSongIndex = 0;
+          } else currentSongIndex = index;
+        }
       });
-      dispatch(actions.setCurrentSongId(songs[currentSongIndex - 1].encodeId));
+      if (currentSongIndex <= 0) {
+        dispatch(actions.setCurrentSongId(songs[songs.length - 1].encodeId));
+      } else
+        dispatch(
+          actions.setCurrentSongId(songs[currentSongIndex - 1].encodeId)
+        );
       dispatch(actions.play(true));
     }
+    // else if (personalSongs) {
+    //   let personalSongsIndex;
+    //   personalSongs?.forEach((item, index) => {
+    //     if (item.encodeId === currentSongId) personalSongsIndex = index;
+    //   });
+    //   if (personalSongsIndex <= 0) {
+    //     dispatch(
+    //       actions.setCurrentSongId(
+    //         personalSongs[personalSongs.length - 1].encodeId
+    //       )
+    //     );
+    //   } else
+    //     dispatch(
+    //       actions.setCurrentSongId(
+    //         personalSongs[personalSongsIndex - 1].encodeId
+    //       )
+    //     );
+    //   dispatch(actions.play(true));
+    // }
   };
 
   const handleShuffle = () => {
-    const randomIndex = Math.round(Math.random() * songs?.length - 1);
-    dispatch(actions.setCurrentSongId(songs[randomIndex].encodeId));
+    if (songs) {
+      const randomIndex = Math.round(Math.random() * songs?.length - 1);
+      dispatch(actions.setCurrentSongId(songs[randomIndex].encodeId));
+    } else if (personalSongs) {
+      const randomIndex = Math.round(Math.random() * personalSongs?.length - 1);
+      dispatch(actions.setCurrentSongId(personalSongs[randomIndex].encodeId));
+    }
     dispatch(actions.play(true));
   };
 
@@ -175,9 +222,9 @@ const Player = ({ setIsShowRightSidebar }) => {
   };
 
   return (
-    <div className="bg-main-400 px-2 md:px-5 h-full flex overflow-hidden ">
+    <div className="bg-main-400 px-2 md:px-5 h-full flex overflow-hidden  gap-4">
       {/* first div */}
-      <div className=" w-[70%] md:w-[30%] gap-4 flex flex-auto  items-center ">
+      <div className=" w-[60%] md:w-[30%] gap-4 flex flex-auto  items-center ">
         <img
           src={songInfo?.thumbnail}
           alt="thumbnail"
@@ -192,7 +239,7 @@ const Player = ({ setIsShowRightSidebar }) => {
           </span>
         </div>
 
-        <div className="flex gap-4 pl-2">
+        <div className="flex gap-4 pl-2 hidden md:flex">
           {isLike ? (
             <span onClick={() => setIsLike(!isLike)}>
               <AiFillHeart size={16} className="text-red-600" />
@@ -202,7 +249,7 @@ const Player = ({ setIsShowRightSidebar }) => {
               <AiOutlineHeart size={16} />
             </span>
           )}
-          <span className="hidden md:flex">
+          <span className="">
             <BsThreeDots />
           </span>
         </div>
@@ -221,7 +268,8 @@ const Player = ({ setIsShowRightSidebar }) => {
           </span>
           <span
             onClick={handlePrevSong}
-            className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
+            className="cursor-pointer"
+            // className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
           >
             <MdSkipPrevious size={24} />
           </span>
@@ -239,7 +287,8 @@ const Player = ({ setIsShowRightSidebar }) => {
           </span>
           <span
             onClick={handleNextSong}
-            className={`${!songs ? "text-gray-500" : "cursor-pointer"}`}
+            className="cursor-pointer"
+            // className={`${!songs  ? "text-gray-500" : "cursor-pointer"}   `}
           >
             <MdSkipNext size={24} />
           </span>

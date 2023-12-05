@@ -1,12 +1,14 @@
-import React from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { ListItem, ListSongs, SongItem } from "../../components";
+
 const Personal = () => {
-  const { personalSongs } = useSelector((state) => state.music);
-  const { currentWidth } = useSelector((state) => state.app);
-  const { isPlaying } = useSelector((state) => state.music);
-  console.log(personalSongs);
+  const { personalSongs, songs } = useSelector((state) => state.music);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.setPlaylist(personalSongs));
+  }, [personalSongs]);
   return (
     // <div className="w-full px-[60px] ">
     //   <div className="w-full h-[90px]"></div>
@@ -25,7 +27,7 @@ const Personal = () => {
     //   </div>
     // </div>
 
-    <>
+    <div>
       <div className="w-full h-[50px] md:h-[90px]"></div>
       <div className="w-full ">
         <img
@@ -52,7 +54,7 @@ const Personal = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

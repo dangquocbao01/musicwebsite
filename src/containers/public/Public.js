@@ -41,7 +41,7 @@ const Public = () => {
           <div
             className={`h-[40px] md:h-[70px] ${
               scrollTop ? "bg-transparent" : "bg-main-300 opacity-95 shadow-md"
-            }  fixed top-0 left-[70px] 1000:left-[240px]   1400:left-[240px] z-50 px-[60px] flex items-center   ${
+            }  fixed top-0 left-[70px] 1000:left-[240px]   1400:left-[240px] z-50 pl-[10px] pr-[30px]  md:px-[60px] flex items-center   ${
               isShowRightSidebar ? "1400:right-[330px] right-0" : "right-0"
             } `}
           >

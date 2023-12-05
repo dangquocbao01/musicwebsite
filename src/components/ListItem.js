@@ -21,7 +21,7 @@ const ListItem = ({
   const dispatch = useDispatch();
 
   const { currentWidth } = useSelector((state) => state.app);
-  console.log(songData);
+
   return (
     <div className="flex group justify-between items-center p-[10px] border-t border-[rgba(0,0,0,0.05)] hover:bg-[#DDE4E4] ">
       <div

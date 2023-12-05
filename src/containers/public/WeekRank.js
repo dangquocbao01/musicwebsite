@@ -1,6 +1,8 @@
 import { React, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
 import { RankList } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../store/actions";
 const notActiveStyle =
   "text-[22px] text-main-500 font-semi-bold py-[15px] uppercase";
 const activeStyle =
@@ -9,7 +11,7 @@ const WeekRank = ({ weekChart }) => {
   const { pid } = useParams();
   console.log(weekChart);
   useEffect(() => {}, [pid]);
-
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="w-full"></div>
@@ -37,7 +39,17 @@ const WeekRank = ({ weekChart }) => {
               </NavLink>
             ))}
           </div>
-          <div className="w-full pb-[100px]">
+          <div
+            className="w-full pb-[100px]"
+            onClick={() =>
+              dispatch(
+                actions.setPlaylist(
+                  weekChart?.find((item, index) => item?.link?.includes(pid))
+                    ?.items
+                )
+              )
+            }
+          >
             <RankList
               data={
                 weekChart?.find((item, index) => item?.link?.includes(pid))

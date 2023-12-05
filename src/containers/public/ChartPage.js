@@ -5,7 +5,8 @@ import { Line } from "react-chartjs-2";
 import { Chart } from "chart.js/auto";
 import { SongItem, ListItem, RankList } from "../../components";
 import _ from "lodash";
-
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../store/actions";
 const ChartPage = () => {
   const [chartData, setChartData] = useState(null);
   const [data, setData] = useState(null);
@@ -81,7 +82,7 @@ const ChartPage = () => {
   const [selected, setSelected] = useState(null);
   const chartRef = useRef();
   const [isShowFull, setIsShowFull] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchChartData = async () => {
       const response = await apiGetChartHome();
@@ -118,7 +119,9 @@ const ChartPage = () => {
       }
     }
   }, [chartData]);
-
+  useEffect(() => {
+    dispatch(actions.setPlaylist(chartData?.RTChart?.items));
+  }, [chartData]);
   return (
     <div className=" ">
       <div className=" flex flex-col">
@@ -179,7 +182,10 @@ const ChartPage = () => {
           #Chart
         </h1>
       </div>
-      <div className="px-[10px] md:px-[60px] mt-6 md:mt-12">
+      <div
+        onClick={() => dispatch(actions.setPlaylist(chartData?.RTChart?.items))}
+        className="px-[10px] md:px-[60px] mt-6 md:mt-12 "
+      >
         <RankList data={chartData?.RTChart?.items} number={10} />
         {/* {chartData?.RTChart?.items.map((item, index) => (
           <ListItem
@@ -207,6 +213,7 @@ const ChartPage = () => {
             {chartData?.weekChart &&
               Object.entries(chartData?.weekChart)?.map((item, index) => (
                 <div
+                  onClick={() => dispatch(actions.setPlaylist(item[1]?.items))}
                   className="w-[48%] bg-gray-200 rounded-md px-[10px] py-5"
                   key={index}
                 >
